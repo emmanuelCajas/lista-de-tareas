@@ -17,21 +17,6 @@ class Tarea {
     }
 }
 
-// const tarea1 = new Tarea(generadorId,'ashdhashd');
-// const tarea2 = new Tarea(generadorId,'ADFSGDFGH');
-// const tarea3 = new Tarea(generadorId,'ashdhasHJKKGHhd');
-// const tarea4 = new Tarea(generadorId,'ashdhDRTashd');
-// const tarea5 = new Tarea(generadorId,'asSDFDGEhdhashd');
-// const tarea6 = new Tarea(generadorId,'ashdhWERTERashd');
-
-// arregloDeTareas.push(tarea1);
-// arregloDeTareas.push(tarea2);
-// arregloDeTareas.push(tarea3);
-// arregloDeTareas.push(tarea4);
-// arregloDeTareas.push(tarea5);
-// console.log(arregloDeTareas);
-
-
 btnAddTarea.addEventListener("click", (e) => {
     e.preventDefault();
     addTarea();
@@ -48,7 +33,8 @@ const addTarea = () => {
 
         let agregarTarea = arregloDeTareas[arregloDeTareas.length-1];
         //console.log(agregarTarea);
-        li.textContent = agregarTarea.id+agregarTarea.descripcion;
+        li.textContent = agregarTarea.descripcion;
+        li.id = arregloDeTareas.length-1
         ulListaTarea.appendChild(li);
         li.appendChild(deleteItem());
 
@@ -64,16 +50,21 @@ const addTarea = () => {
 function deleteItem() {
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'X';
-    deleteBtn.className = 'btnEliminar'
+    deleteBtn.className = 'btnEliminar';
+    deleteBtn.id = arregloDeTareas.length-1;
 
     deleteBtn.addEventListener('click', (e) => {
+        const idBoton = e.target.getAttribute('id');
         const item = e.target.parentElement;
         ulListaTarea.removeChild(item);
+        arregloDeTareas.splice(idBoton,1);
 
         const items = document.querySelectorAll('li');
         if (items.length === 0) {
             empty.style.display = 'block';
         }
+
+        console.log(arregloDeTareas);
     })
 
     return deleteBtn;
